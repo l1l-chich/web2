@@ -1,215 +1,11 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт</title>
+{% extends 'base.html' %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content %}
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        /* Кнопка открытия сайдбара */
-        .sidebar-toggle {
-            position: fixed;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background-color: #2725b5;
-            color: white;
-            border: none;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .sidebar-toggle:hover {
-            background-color: #1e1cbd;
-            transform: translateY(-50%) translateX(5px);
-        }
-
-        /* Сайдбар - изначально скрыт */
-        nav {
-            background-color: #2725b5;
-            padding: 30px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 280px;
-            z-index: 1500;
-            transition: transform 0.4s ease;
-            transform: translateX(-100%); /* Скрыт слева */
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Сайдбар открыт при наведении на кнопку */
-        .sidebar-toggle:hover + nav,
-        nav:hover {
-            transform: translateX(0);
-        }
-
-        /* Сайдбар открыт по классу (для клика) */
-        nav.open {
-            transform: translateX(0);
-        }
-
-        nav h3 {
-            color: white;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style: none;
-            flex-grow: 1; /* Меню занимает всё доступное пространство */
-        }
-
-        nav li {
-            margin-bottom: 20px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 15px 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: 500;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateX(5px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        nav a:active {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Форма входа */
-        .login-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .login-icon {
-            display: block;
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .login-title {
-            color: white;
-            text-align: center;
-            font-size: 1.3em;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .login-form input {
-            width: 100%;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            background-color: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-        }
-
-        .login-form input:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .login-form input::placeholder {
-            color: #999;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        .register-link {
-            display: block;
-            text-align: center;
-            color: white;
-            text-decoration: none;
-            font-size: 0.9em;
-            margin-top: 10px;
-            transition: color 0.3s;
-        }
-
-        .register-link:hover {
-            color: #ff6b6b;
-            text-decoration: underline;
-        }
-
-        /* Основной контент */
-        .main-content {
-            margin-left: 0;
-            padding: 40px 20px;
-            transition: margin-left 0.4s ease;
-        }
-
         section {
             min-height: 100vh;
             padding: 100px 20px;
@@ -243,184 +39,35 @@
             line-height: 1.6;
             color: #555;
         }
-
-        /* Кнопка "Вверх" */
-        .btn-up {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: #2725b5;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            animation: pulse 2s infinite;
-        }
-
-        .btn-up:hover {
-            background-color: #1e1cbd;
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn-up.show {
-            display: flex;
-        }
-
-        /* Анимация пульсации кнопки */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(39, 37, 181, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(39, 37, 181, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(39, 37, 181, 0); }
-        }
-
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 768px) {
-            nav {
-                width: 250px;
-                padding: 20px;
-            }
-
-            nav h3 {
-                font-size: 1.5em;
-                margin-bottom: 20px;
-            }
-
-            nav a {
-                font-size: 1em;
-                padding: 12px 15px;
-            }
-
-            .sidebar-toggle {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
-
-            h2 {
-                font-size: 2.5em;
-            }
-
-            p {
-                font-size: 1.1em;
-            }
-
-            section {
-                min-height: 80vh;
-                padding: 60px 20px;
-            }
-        }
     </style>
-</head>
-<body>
-    <!-- Кнопка открытия сайдбара -->
-    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
 
-    <!-- Сайдбар -->
-    <nav id="sidebar">
-        <h3>Меню</h3>
-        <ul>
-            <li><a href="#home">Главная</a></li>
-            <li><a href="#about">О нас</a></li>
-            <li><a href="#catalog">Каталог</a></li>
-            <li><a href="#blog">Блог</a></li>
-            <li><a href="#contact">Контакты</a></li>
-        </ul>
+    <!-- Главная -->
+    <section id="home">
+        <h2>Главная</h2>
+        <p>Добро пожаловать на наш сайт! Наведите курсор на кнопку ☰ слева или нажмите на неё, чтобы открыть меню с формой входа.</p>
+    </section>
 
-        <!-- Форма входа -->
-        <div class="login-section">
-            <div class="login-icon">👤</div>
-            <div class="login-title">Вход</div>
-            <form class="login-form" action="/login" method="POST">
-                <input type="text" name="username" placeholder="Логин" required>
-                <input type="password" name="password" placeholder="Пароль" required>
-                <button type="submit" class="btn-login">Войти</button>
-            </form>
-            <a href="create.html" class="register-link">Регистрация</a>
-        </div>
-    </nav>
+    <!-- О нас -->
+    <section id="about">
+        <h2>О нас</h2>
+        <p>Мы — команда профессионалов с многолетним опытом работы в нашей сфере. Наша миссия — предоставлять качественные услуги нашим клиентам.</p>
+    </section>
 
-    <!-- Основной контент -->
-    <div class="main-content">
-        <!-- Раздел 1: Главная -->
-        <section id="home">
-            <h2>Главная</h2>
-            <p>Добро пожаловать на наш сайт! Наведите курсор на кнопку ☰ слева или нажмите на неё, чтобы открыть меню с формой входа.</p>
-        </section>
+    <!-- Каталог -->
+    <section id="catalog">
+        <h2>Каталог</h2>
+        <p>Наш каталог товаров и услуг постоянно обновляется. Мы предлагаем только лучшие решения для наших клиентов.</p>
+    </section>
 
-        <!-- Раздел 2: О нас -->
-        <section id="about">
-            <h2>О нас</h2>
-            <p>Мы — команда профессионалов с многолетним опытом работы в нашей сфере. Наша миссия — предоставлять качественные услуги нашим клиентам.</p>
-        </section>
+    <!-- Блог -->
+    <section id="blog">
+        <h2>Блог</h2>
+        <p>Полезные статьи и новости из мира технологий и бизнеса. Читайте наши материалы и будьте в курсе последних трендов.</p>
+    </section>
 
-        <!-- Раздел 3: Каталог -->
-        <section id="catalog">
-            <h2>Каталог</h2>
-            <p>Наш каталог товаров и услуг постоянно обновляется. Мы предлагаем только лучшие решения для наших клиентов.</p>
-        </section>
-
-        <!-- Раздел 4: Блог -->
-        <section id="blog">
-            <h2>Блог</h2>
-            <p>Полезные статьи и новости из мира технологий и бизнеса. Читайте наши материалы и будьте в курсе последних трендов.</p>
-        </section>
-
-        <!-- Раздел 5: Контакты -->
-        <section id="contact">
-            <h2>Контакты</h2>
-            <p>Свяжитесь с нами для получения дополнительной информации. Мы всегда на связи и готовы ответить на ваши вопросы.</p>
-        </section>
-    </div>
-
-    <!-- Кнопка "Вверх" -->
-    <button class="btn-up" id="btnUp">↑</button>
-
-    <script>
-        // Кнопка открытия/закрытия сайдбара
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-
-        sidebarToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Предотвращаем закрытие при клике на кнопку
-            sidebar.classList.toggle('open');
-        });
-
-        // Закрытие сайдбара при клике вне его
-        document.addEventListener('click', (e) => {
-            if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
-        });
-
-        // Кнопка "Вверх"
-        const btnUp = document.getElementById('btnUp');
-
-        // Показываем кнопку при прокрутке
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 400) {
-                btnUp.classList.add('show');
-            } else {
-                btnUp.classList.remove('show');
-            }
-        });
-
-        // Прокрутка наверх при клике
-        btnUp.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
-</body>
-</html>
+    <!-- Контакты -->
+    <section id="contact">
+        <h2>Контакты</h2>
+        <p>Свяжитесь с нами для получения дополнительной информации. Мы всегда на связи и готовы ответить на ваши вопросы.</p>
+    </section>
+{% endblock %}
