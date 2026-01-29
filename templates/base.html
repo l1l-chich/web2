@@ -247,18 +247,43 @@
         </ul>
 
         <!-- Форма входа -->
-        <div class="login-section">
-            <div class="login-icon">👤</div>
-            <div class="login-title">Вход</div>
-            <form class="login-form" action="{{ url_for('login') }}" method="POST">
-                <input type="text" name="username" placeholder="Логин" required>
-                <input type="password" name="password" placeholder="Пароль" required>
-                <button type="submit" class="btn-login">Войти</button>
-            </form>
-            {% if not is_create_page %}
-                <a href="{{ url_for('create') }}" class="register-link">Регистрация</a>
+{% if session.telegram_id %}
+    <div class="user-section" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(255, 255, 255, 0.2);">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+            {% if session.photo_url %}
+                <img src="{{ session.photo_url }}" alt="Аватар" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+            {% else %}
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                    {{ session.first_name[0] if session.first_name else '👤' }}
+                </div>
             {% endif %}
+            <div>
+                <div style="color: white; font-weight: bold; font-size: 1.1em;">{{ session.first_name }}</div>
+                {% if session.username %}
+                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9em;">@{{ session.username }}</div>
+                {% endif %}
+            </div>
         </div>
+        <a href="{{ url_for('logout') }}"
+           style="display: block; width: 100%; padding: 10px; background-color: rgba(255,255,255,0.2); color: white; text-align: center; border-radius: 5px; text-decoration: none; transition: background-color 0.3s;"
+           onmouseover="this.style.backgroundColor='rgba(255,255,255,0.3)'"
+           onmouseout="this.style.backgroundColor='rgba(255,255,255,0.2)'">
+            Выйти
+        </a>
+    </div>
+{% else %}
+    <div class="login-section">
+        <div class="login-icon">👤</div>
+        <div class="login-title">Вход</div>
+        <a href="{{ url_for('create') }}"
+           style="display: block; width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 1.1em; font-weight: bold; text-align: center; text-decoration: none; transition: all 0.3s ease;">
+            Войти через Telegram
+        </a>
+        <div style="color: rgba(255,255,255,0.7); font-size: 0.85em; margin-top: 10px; text-align: center;">
+            Без паролей и хранения данных
+        </div>
+    </div>
+{% endif %}
     </nav>
 
     <!-- Основной контент -->

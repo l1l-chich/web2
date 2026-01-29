@@ -1,113 +1,80 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Регистрация
+Вход через Telegram
 {% endblock %}
 
 {% block content %}
     <style>
-        .registration-container {
-            max-width: 500px;
+        .telegram-login-container {
+            max-width: 600px;
             margin: 100px auto;
             background-color: white;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .registration-container h1 {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             text-align: center;
-            margin-bottom: 30px;
-            color: #2725b5;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+        .telegram-login-container h1 {
             color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
+        .telegram-widget {
+            margin: 30px auto;
+            display: block;
+        }
+
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #2725b5;
+            padding: 15px;
             border-radius: 5px;
-            font-size: 1em;
+            margin: 20px 0;
+            text-align: left;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #2725b5;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background-color: #2725b5;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-submit:hover {
-            background-color: #1e1cbd;
-        }
-
-        .login-link {
-            text-align: center;
+        .back-link {
+            display: inline-block;
             margin-top: 20px;
-            color: #666;
-        }
-
-        .login-link a {
             color: #2725b5;
             text-decoration: none;
             font-weight: bold;
+            transition: opacity 0.3s;
         }
 
-        .login-link a:hover {
-            text-decoration: underline;
+        .back-link:hover {
+            opacity: 0.8;
         }
     </style>
 
-    <div class="registration-container">
-        <h1>Регистрация</h1>
+    <div class="telegram-login-container">
+        <h1>🔐 Вход через Telegram</h1>
 
-        <form action="{{ url_for('register') }}" method="POST">
-            <div class="form-group">
-                <label for="username">Логин:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+        <div class="info-box">
+            <p>✅ Никаких паролей</p>
+            <p>✅ Не храним ваши данные</p>
+            <p>✅ Только открытая информация из вашего профиля</p>
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+        <!-- Telegram Login Widget -->
+        <script
+            async
+            src="https://telegram.org/js/telegram-widget.js?22"
+            data-telegram-login="YOUR_BOT_USERNAME"
+            data-size="large"
+            data-radius="10"
+            data-request-access="write"
+            data-auth-url="{{ url_for('auth', _external=True) }}"
+            data-userpic="true">
+        </script>
 
-            <div class="form-group">
-                <label for="password">Пароль:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <div class="form-group">
-                <label for="confirm_password">Подтвердите пароль:</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-            </div>
-
-            <button type="submit" class="btn-submit">Зарегистрироваться</button>
-        </form>
-
-        <p class="login-link">
-            Уже есть аккаунт? <a href="{{ url_for('index') }}">Вернуться на главную</a>
+        <p style="color: #666; margin-top: 20px; font-size: 0.9em;">
+            Нажимая кнопку выше, вы разрешаете передачу открытой информации из вашего профиля Telegram
         </p>
+
+        <a href="{{ url_for('index') }}" class="back-link">← Вернуться на главную</a>
     </div>
 {% endblock %}
