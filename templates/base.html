@@ -103,6 +103,13 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
+        /* Активная ссылка */
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.4);
+            font-weight: bold;
+            transform: translateX(5px);
+        }
+
         /* Информация о пользователе */
         .user-section {
             margin-top: 20px;
@@ -268,20 +275,20 @@
     <nav id="sidebar">
         <h3>Меню</h3>
         <ul>
-            {% if current_page in ['about', 'catalog', 'blog'] %}
-                <!-- На страницах О нас, Каталог, Блог - ссылки ведут на главную -->
-                <li><a href="{{ url_for('index') }}">Главная</a></li>
-                <li><a href="{{ url_for('index') }}">О нас</a></li>
-                <li><a href="{{ url_for('index') }}">Каталог</a></li>
-                <li><a href="{{ url_for('index') }}">Блог</a></li>
-                <li><a href="{{ url_for('index') }}#contact">Контакты</a></li>
-            {% else %}
+            {% if current_page == 'index' %}
                 <!-- На главной странице - якорные ссылки -->
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#about">О нас</a></li>
-                <li><a href="#catalog">Каталог</a></li>
-                <li><a href="#blog">Блог</a></li>
-                <li><a href="#contact">Контакты</a></li>
+                <li><a href="#home" class="{% if current_section == 'home' %}active{% endif %}">Главная</a></li>
+                <li><a href="#about" class="{% if current_section == 'about' %}active{% endif %}">О нас</a></li>
+                <li><a href="#catalog" class="{% if current_section == 'catalog' %}active{% endif %}">Каталог</a></li>
+                <li><a href="#blog" class="{% if current_section == 'blog' %}active{% endif %}">Блог</a></li>
+                <li><a href="#contact" class="{% if current_section == 'contact' %}active{% endif %}">Контакты</a></li>
+            {% else %}
+                <!-- На других страницах - ссылки на маршруты -->
+                <li><a href="{{ url_for('index') }}" class="{% if current_page == 'index' %}active{% endif %}">Главная</a></li>
+                <li><a href="{{ url_for('about') }}" class="{% if current_page == 'about' %}active{% endif %}">О нас</a></li>
+                <li><a href="{{ url_for('catalog') }}" class="{% if current_page == 'catalog' %}active{% endif %}">Каталог</a></li>
+                <li><a href="{{ url_for('blog') }}" class="{% if current_page == 'blog' %}active{% endif %}">Блог</a></li>
+                <li><a href="{{ url_for('index') }}#contact" class="{% if current_page == 'contact' %}active{% endif %}">Контакты</a></li>
             {% endif %}
         </ul>
 
@@ -307,7 +314,7 @@
             </div>
         {% else %}
             <div class="login-section">
-                <div class="login-icon">📱</div>
+                <div class="login-icon">👤</div>
                 <div class="login-title">Вход</div>
                 <a href="{{ url_for('create') }}" class="btn-telegram">Войти через Telegram</a>
                 <div class="login-note">Без паролей и хранения данных</div>

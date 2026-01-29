@@ -43,11 +43,12 @@ def verify_telegram_data(data):
 
 @app.route('/')
 def index():
-    """Главная страница"""
     is_authenticated = session.get('telegram_id') is not None
     return render_template('index.html',
-                           is_create_page=False,
-                           is_authenticated=is_authenticated)
+                         is_create_page=False,
+                         is_authenticated=is_authenticated,
+                         current_page='index',
+                         current_section='home')  # Можно менять в зависимости от якоря
 
 @app.route('/about')
 def about():
