@@ -54,6 +54,14 @@ def about():
     """Страница 'О нас'"""
     return render_template('about.html', is_create_page=False)
 
+@app.route('/catalog')
+def catalog():
+    return render_template('catalog.html', current_page='catalog')
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', current_page='blog')
+
 @app.route('/create')
 def create():
     """Страница входа через Telegram"""

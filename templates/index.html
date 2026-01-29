@@ -17,12 +17,45 @@
             margin-bottom: 40px;
             border-radius: 10px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section.clickable:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        section.clickable::after {
+            content: '→';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        section.clickable:hover::after {
+            opacity: 1;
         }
 
         #home { background-color: #f8f9fa; }
-        #about { background-color: #e9ecef; }
-        #catalog { background-color: #dee2e6; }
-        #blog { background-color: #ced4da; }
+        #about {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        #catalog {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        #blog {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
         #contact { background-color: #adb5bd; }
 
         h2 {
@@ -32,12 +65,33 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        #about h2, #catalog h2, #blog h2 {
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
         p {
             font-size: 1.4em;
             max-width: 700px;
             margin: 0 auto 20px;
             line-height: 1.6;
             color: #555;
+        }
+
+        #about p, #catalog p, #blog p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section-label {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: white;
         }
     </style>
 
@@ -52,23 +106,32 @@
         {% endif %}
     </section>
 
-    <!-- Раздел 2: О нас -->
-    <section id="about">
-        <h2>О нас</h2>
-        <p>Мы - команда профессионалов с многолетним опытом работы в нашей сфере. Наша миссия - предоставлять качественные услуги нашим клиентам.</p>
-    </section>
+    <!-- Раздел 2: О нас (кликабельный) -->
+    <a href="{{ url_for('about') }}" style="text-decoration: none; color: inherit; display: block;">
+        <section id="about" class="clickable">
+            <h2>О нас</h2>
+            <p>Мы — команда профессионалов с многолетним опытом работы в нашей сфере. Наша миссия — предоставлять качественные услуги нашим клиентам.</p>
+            <div class="section-label">Подробнее →</div>
+        </section>
+    </a>
 
-    <!-- Раздел 3: Каталог -->
-    <section id="catalog">
-        <h2>Каталог</h2>
-        <p>Наш каталог товаров и услуг постоянно обновляется. Мы предлагаем только лучшие решения для наших клиентов.</p>
-    </section>
+    <!-- Раздел 3: Каталог (кликабельный) -->
+    <a href="{{ url_for('catalog') }}" style="text-decoration: none; color: inherit; display: block;">
+        <section id="catalog" class="clickable">
+            <h2>Каталог</h2>
+            <p>Наш каталог товаров и услуг постоянно обновляется. Мы предлагаем только лучшие решения для наших клиентов.</p>
+            <div class="section-label">Смотреть каталог →</div>
+        </section>
+    </a>
 
-    <!-- Раздел 4: Блог -->
-    <section id="blog">
-        <h2>Блог</h2>
-        <p>Полезные статьи и новости из мира технологий и бизнеса. Читайте наши материалы и будьте в курсе последних трендов.</p>
-    </section>
+    <!-- Раздел 4: Блог (кликабельный) -->
+    <a href="{{ url_for('blog') }}" style="text-decoration: none; color: inherit; display: block;">
+        <section id="blog" class="clickable">
+            <h2>Блог</h2>
+            <p>Полезные статьи и новости из мира технологий и бизнеса. Читайте наши материалы и будьте в курсе последних трендов.</p>
+            <div class="section-label">Читать статьи →</div>
+        </section>
+    </a>
 
     <!-- Раздел 5: Контакты -->
     <section id="contact">

@@ -268,13 +268,15 @@
     <nav id="sidebar">
         <h3>Меню</h3>
         <ul>
-            {% if is_create_page %}
-                <li><a href="{{ url_for('index') }}#home">Главная</a></li>
-                <li><a href="{{ url_for('index') }}#about">О нас</a></li>
-                <li><a href="{{ url_for('index') }}#catalog">Каталог</a></li>
-                <li><a href="{{ url_for('index') }}#blog">Блог</a></li>
+            {% if current_page in ['about', 'catalog', 'blog'] %}
+                <!-- На страницах О нас, Каталог, Блог - ссылки ведут на главную -->
+                <li><a href="{{ url_for('index') }}">Главная</a></li>
+                <li><a href="{{ url_for('index') }}">О нас</a></li>
+                <li><a href="{{ url_for('index') }}">Каталог</a></li>
+                <li><a href="{{ url_for('index') }}">Блог</a></li>
                 <li><a href="{{ url_for('index') }}#contact">Контакты</a></li>
             {% else %}
+                <!-- На главной странице - якорные ссылки -->
                 <li><a href="#home">Главная</a></li>
                 <li><a href="#about">О нас</a></li>
                 <li><a href="#catalog">Каталог</a></li>
@@ -305,7 +307,7 @@
             </div>
         {% else %}
             <div class="login-section">
-                <div class="login-icon">👤</div>
+                <div class="login-icon">📱</div>
                 <div class="login-title">Вход</div>
                 <a href="{{ url_for('create') }}" class="btn-telegram">Войти через Telegram</a>
                 <div class="login-note">Без паролей и хранения данных</div>

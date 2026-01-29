@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Каталог
+{% endblock %}
+
+{% block content %}
+    <style>
+        .page-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            background-color: white;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-container h1 {
+            color: #f5576c;
+            font-size: 3em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4em;
+        }
+
+        .product-card h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .price {
+            color: #f5576c;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.9;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="page-container">
+        <h1>Каталог товаров</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;">Наш каталог постоянно обновляется. Предлагаем только лучшие товары для наших клиентов.</p>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">👕</div>
+                <h3>Футболки</h3>
+                <p>Стильные и комфортные футболки из качественных материалов.</p>
+                <div class="price">от 250 000 руб.</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">👖</div>
+                <h3>Джинсы</h3>
+                <p>Модные джинсы на любой вкус и размер.</p>
+                <div class="price">от 350 000 руб.</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">👟</div>
+                <h3>Обувь</h3>
+                <p>Удобная и стильная обувь для любого сезона.</p>
+                <div class="price">от 400 000 руб.</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">🧥</div>
+                <h3>Верхняя одежда</h3>
+                <p>Теплая и модная верхняя одежда на зиму.</p>
+                <div class="price">от 600 000 руб.</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">🧦</div>
+                <h3>Аксессуары</h3>
+                <p>Стильные аксессуары для завершения образа.</p>
+                <div class="price">от 100 000 руб.</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">👜</div>
+                <h3>Сумки</h3>
+                <p>Модные сумки и рюкзаки для любого случая.</p>
+                <div class="price">от 300 000 руб.</div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="back-link">← Вернуться на главную</a>
+    </div>
+{% endblock %}
