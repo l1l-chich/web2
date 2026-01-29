@@ -8,8 +8,8 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Для сессий
 
-# Замените на ваш токен бота
-BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'
+# токен бота
+BOT_TOKEN = 'TELEGRAM_TOKEN'
 
 
 def verify_telegram_data(data):
