@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}
+О нас
+{% endblock %}
+
+{% block content %}
+    <style>
+        .about-container {
+            max-width: 900px;
+            margin: 60px auto;
+            background-color: white;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-container h1 {
+            color: #2725b5;
+            font-size: 3em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .about-section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .about-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .about-section h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .team-member h3 {
+            color: #2725b5;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: #2725b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #1e1cbd;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="about-container">
+        <h1>О нас</h1>
+
+        <div class="about-section">
+            <h2>Наша история</h2>
+            <p>Мы начали свой путь в 2010 году как небольшая команда энтузиастов. С тех пор мы выросли в успешную компанию, обслуживающую клиентов по всему миру.</p>
+            <p>Наша миссия — предоставлять инновационные решения, которые помогают нашим клиентам достигать их целей.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Наши ценности</h2>
+            <p><strong>Качество</strong> — мы никогда не идём на компромиссы в качестве наших услуг.</p>
+            <p><strong>Инновации</strong> — мы постоянно ищем новые способы улучшить наши продукты.</p>
+            <p><strong>Клиентоориентированность</strong> — удовлетворённость клиентов — наш главный приоритет.</p>
+            <p><strong>Честность</strong> — мы прозрачны во всех наших действиях.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Наша команда</h2>
+            <p>В нашей команде работают профессионалы с многолетним опытом в своих областях.</p>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <h3>Александр</h3>
+                    <p>Генеральный директор</p>
+                </div>
+
+                <div class="team-member">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <h3>Мария</h3>
+                    <p>Технический директор</p>
+                </div>
+
+                <div class="team-member">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <h3>Дмитрий</h3>
+                    <p>Менеджер проектов</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="back-link">← Вернуться на главную</a>
+    </div>
+{% endblock %}

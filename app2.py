@@ -49,6 +49,10 @@ def index():
                            is_create_page=False,
                            is_authenticated=is_authenticated)
 
+@app.route('/about')
+def about():
+    """Страница 'О нас'"""
+    return render_template('about.html', is_create_page=False)
 
 @app.route('/create')
 def create():
