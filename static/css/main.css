@@ -1,0 +1,18 @@
+nav a.active {
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    transform: translateX(5px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    border-radius: 5px 0 0 5px;
+}

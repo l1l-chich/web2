@@ -103,11 +103,24 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Активная ссылка */
+        /* Активная ссылка - подсветка */
         nav a.active {
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.5);
             font-weight: bold;
             transform: translateX(5px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px 0 0 5px;
         }
 
         /* Информация о пользователе */
@@ -277,11 +290,11 @@
         <ul>
             {% if current_page == 'index' %}
                 <!-- На главной странице - якорные ссылки -->
-                <li><a href="#home" class="{% if current_section == 'home' %}active{% endif %}">Главная</a></li>
-                <li><a href="#about" class="{% if current_section == 'about' %}active{% endif %}">О нас</a></li>
-                <li><a href="#catalog" class="{% if current_section == 'catalog' %}active{% endif %}">Каталог</a></li>
-                <li><a href="#blog" class="{% if current_section == 'blog' %}active{% endif %}">Блог</a></li>
-                <li><a href="#contact" class="{% if current_section == 'contact' %}active{% endif %}">Контакты</a></li>
+                <li><a href="#home" data-section="home" class="{% if current_section == 'home' %}active{% endif %}">Главная</a></li>
+                <li><a href="#about" data-section="about" class="{% if current_section == 'about' %}active{% endif %}">О нас</a></li>
+                <li><a href="#catalog" data-section="catalog" class="{% if current_section == 'catalog' %}active{% endif %}">Каталог</a></li>
+                <li><a href="#blog" data-section="blog" class="{% if current_section == 'blog' %}active{% endif %}">Блог</a></li>
+                <li><a href="#contact" data-section="contact" class="{% if current_section == 'contact' %}active{% endif %}">Контакты</a></li>
             {% else %}
                 <!-- На других страницах - ссылки на маршруты -->
                 <li><a href="{{ url_for('index') }}" class="{% if current_page == 'index' %}active{% endif %}">Главная</a></li>
@@ -358,6 +371,56 @@
         btnUp.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // Подсветка активной секции при прокрутке
+        {% if current_page == 'index' %}
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a[data-section]');
+
+            // Функция для обновления активной ссылки
+            const updateActiveLink = () => {
+                const scrollPosition = window.scrollY + 100; // +100 для компенсации шапки
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        // Убираем класс у всех ссылок
+                        navLinks.forEach(link => link.classList.remove('active'));
+
+                        // Добавляем класс к текущей ссылке
+                        const activeLink = document.querySelector(`nav a[data-section="${sectionId}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            };
+
+            // Слушаем прокрутку
+            window.addEventListener('scroll', updateActiveLink);
+
+            // Обновляем при загрузке страницы
+            updateActiveLink();
+
+            // Обновляем при клике на ссылку
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    setTimeout(updateActiveLink, 500); // Ждём завершения прокрутки
+                });
+            });
+        });
+        {% endif %}
     </script>
 </body>
+    <!-- Кнопка "Вверх" -->
+    <button class="btn-up" id="btnUp">↑</button>
+
+    <!-- Подключение внешнего JavaScript файла -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
 </html>
